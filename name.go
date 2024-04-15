@@ -172,12 +172,10 @@ func ToSnakeCase(input string) string {
 		if unicode.IsLetter(char) {
 			if (!isSeparator && unicode.IsUpper(char)) || unicode.IsNumber(rune(input[i-1])) {
 				result.WriteRune('_')
-				isSeparator = true
 			}
 		} else if unicode.IsNumber(char) {
 			if !isSeparator {
 				result.WriteRune('_')
-				isSeparator = true
 			}
 		}
 		result.WriteRune(unicode.ToLower(char))
