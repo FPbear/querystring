@@ -37,7 +37,7 @@ func main() {
     // Output: hello=world&empty=
 }
 ```
-也可以自定义编码器，例如：
+You can also customize the encoder, for example:
 ```golang
 import "github.com/FPbear/querystring"
 
@@ -51,10 +51,10 @@ func (s *subEncode) Encode() ([]string, error) {
 }
 
 type Input struct {
-    Hello string     `url:"hello"`
-    Foo   string     `url:"foo,omitempty"`
-    Empty string     `url:"empty"`
-    Sub   *subEncode `url:"sub,omitempty"`
+    Hello string     `form:"hello"`
+    Foo   string     `form:"foo,omitempty"`
+    Empty string     `form:"empty"`
+    Sub   *subEncode `form:"sub,omitempty"`
 }
 
 func main() {
@@ -68,7 +68,8 @@ func main() {
         },
     }
 
-    values, err := querystring.Values(input)
+    con := NewConverter(NewTag(WithTag("form")))
+    values, err := con.Values(input)
     if err != nil {
         log.Fatal(err)
     }
